@@ -1,8 +1,20 @@
 package day2;
 
+//QC : What is a constructor
+//Ans :
+/*
+	- special method
+            - gets called automatically whenever you create an object
+            - it has same name as the class name
+	- it not have any return type, not even void
+            - it is used for initialization
+            - can be overloaded
+            -java provides default constructor in every class if no constructor is there
+            */
+
 public class Demo {
 
-    int num1=10;                //instance variable
+   private int num1=10;                //instance variable
    static int num2=20;          //class variable
     public Demo() {
         num1++;

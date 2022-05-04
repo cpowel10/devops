@@ -1,7 +1,7 @@
 package day2;
 //QC : static keyword in java :
 //Ans :The static keyword in Java is used to share the same variable or method of a given class
-//The static keyword belongs to the class than an instance of the class.
+//The static keyword belongs to the class rather than an instance of the class.
 //Real Time Scenario : count number of objects created
 public class StaticDemo {
     int num1=10;
