@@ -977,7 +977,64 @@ public <RT> MN<parameters>
 
 
 
+Day4 Agenda
 
+
+
+Abstract class 
+interfaces
+====================
+
+ABSTRACTION
+- OOPS - 
+Abstract class is a class which contains abstract method.
+
+  *Cannot create an object of abstract class
+Abstract is a java modifier applicable for classes and methods in java but not for Variables. 
+
+Abstract can also inherit from an abstract class
+
+*** Interface
+==============
+pure abstract 
+you cannot have non abstract method in an interface
+by default all the methods are abstract
+by default all the variables are final (constant)
+
+
+***Difference between abstract class and interface
+
+all methods are abstract in an interface
+Abstract class	Interface
+1) Abstract class can have abstract and non-abstract methods.	Interface can have only abstract methods. Since Java 8, it can have default and static methods also.
+2) Abstract class doesn't support multiple inheritance.	Interface supports multiple inheritance.
+3) Abstract class can have final, non-final, static and non-static variables.	Interface has only static and final variables.
+4) Abstract class can provide the implementation of interface.	Interface can't provide the implementation of abstract class.
+5) The abstract keyword is used to declare abstract class.	The interface keyword is used to declare interface.
+6) An abstract class can extend another Java class and implement multiple Java interfaces.	An interface can extend another Java interface only.
+7) An abstract class can be extended using keyword "extends".	An interface can be implemented using keyword "implements".
+8) A Java abstract class can have class members like private, protected, etc.	Members of a Java interface are public by default.
+9)Example:
+public abstract class Shape{
+public abstract void draw();
+}	Example:
+public interface Drawable{
+void draw();
+}
+
+
+class -->class		extends
+class -> interface		implements
+interface --> interface 	extends
+interface --> class 		not possible	XX
+
+
+final keyword
+-----------------
+
+class final 	- it cannot be inherited
+method final 	- it cannot be overridden
+variable final	- it cannot be changed once assigned, 
 
 
 
@@ -992,24 +1049,67 @@ public <RT> MN<parameters>
 
 
 var-args
-Annotations
+---------------
+variable arguments
+Variable Arguments (Varargs) in Java is a method that takes a variable number of arguments. Variable Arguments in Java simplifies the creation of methods that need to take a variable number of arguments.
+
+
+
 
 GC
-
-Scanner 
-I/O
-String
-Wrapper classes
-
-
-
-Maven 
-Basics of jUnit
+-----------------------------------------
+Garbage collection
+c	- malloc		free
+c++	- new		delete
+java	- new		  X
 
 
 
+System.gc();		- request the GC to run
+
+Eligible for GC.
+
+Object class
+=============
+
+	finalize method()
 
 
+The purpose of a finalize() method can be overridden for an object to include the cleanup code or to dispose of the system resources that can be done before the object is garbage collected
+
+
+** What is the purpose of GC ?
+Garbage collection in Java is the process by which Java programs perform automatic memory management. Java programs compile to bytecode that can be run on a Java Virtual Machine, or JVM for short. When Java programs run on the JVM, objects are created on the heap, which is a portion of memory dedicated to the program
+
+** Can we call the GC ?
+You can call Garbage Collector explicitly, but JVM decides whether to process the call or not
+
+
+
+**String
+
+----------------------------------------------------
+
+jdk1.0
+** it is immutable (cannot be changed)
+--java.lang
+--group of characters
+--final class
+** -- how many ways are there to create string
+Two ways to create string
+
+1) String name="Daniel";
+2) String name = new String("Richard");
+
+** What is difference between == and equals method .
+
+
+   //equals     - will check whether the two string values are same or not
+        //==        - will check refernce of the two strings
+
+
+
+**List out some string methods
 
 Exercise Objective(s): String class, String immutability  
 
@@ -1018,8 +1118,11 @@ Exercise: Write class that declares the following String.
 Perform the following modifications to the above string using appropriate methods.
 
 1.	Print the character at the 12th index. 
+
 2.	Check whether the String contains the word “is”. 
+false		- 
 3.	Add the string “and killed it” to the existing string. 
+
 4.	Check whether the String ends with the word “dogs”. 
 5.	Check whether the String is equal to “The quick brown Fox jumps over the lazy Dog”.
 6.	Check whether the String is equal to “THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG”.                                
@@ -1034,6 +1137,129 @@ Perform the following modifications to the above string using appropriate method
 15.	Find the last index position of the character “e”. 
 
 Recommended duration: 30 Mins
+
+
+Solution :
+
+package day4;
+
+public class StringAssignmentSolution {
+
+    public static void main(String[] args) {
+
+        String string = "The quick brown fox jumps over the lazy dog";
+
+        //print char at index 12
+        System.out.println(string.charAt(12));
+        //add string "and killed it" to existing string
+        String string1 = string.concat(" and killed it");
+        System.out.println(string1);
+        //check weather string is equal to "The quick brown fox jumps over the lazy Dog"
+        System.out.println(string.equals("The quick brown fox jumps over the lazy Dog"));
+        //check weather string is equal to "THE QUICK BROWN..."
+        System.out.println(string.equals("THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG"));
+        //find length of string
+        System.out.println(string.length());
+        //check weather string matches "The quick.... Dog"
+        System.out.println(string=="the quick brown fox jumps over the lazy Dog");
+        //replace word "The" with the word "A"
+        String string2 = string.replace("The", "A");
+        System.out.println(string2);
+        //split string into two so
+        String[] stringparts = string.split("j");
+        String string3 = stringparts[0];
+        String string4 = stringparts[1];
+        System.out.println(string3 + " - " + string4);
+        //print animal names alone
+        String string5 = string.substring(15,19);
+        String string6 = string.substring(39,43);
+        System.out.println(string5 +" - "+ string6);
+        //print above string in lower case
+        String string7 = string6.toLowerCase();
+        System.out.println(string7);
+        //print above string in upper case
+        String string8 = string7.toUpperCase();
+        System.out.println(string8);
+        //find index of character a
+        System.out.println(string.indexOf('a'));
+        //find index of character e
+        System.out.println(string.indexOf('e'));
+    }
+}
+
+
+
+
+Mutable
+
+StringBuffer
+	all the methods of string , replace
+
+
+Length vs capacity
+
+
+A string buffer or string builder's length is the number of characters it contains; its capacity is the number of character spaces that have been allocated. 
+
+
+================self study
+StringBuilder	- 
+StringTokenizer
+
+
+
+
+Object
+==============
+super class for all the classes in java
+
+finalize
+toString
+equals
+hashCode
+
+
+wait
+notify
+
+
+
+Group discussion 
+
+What is an abstract class ? Why we need it ?
+What is an interface ?
+Difference between interface and abstract class
+What is String and some of the methods of string ?
+Object class methods
+	finalize
+	toString
+	equals
+	hashCode
+What is GC ? 
+What is the use of final keyword ?
+
+
+
+
+
+
+
+
+Annotations
+Scanner 
+I/O
+Wrapper classes
+
+
+
+Maven 
+Basics of jUnit
+
+
+
+
+
+
 
 
 
