@@ -1242,22 +1242,415 @@ What is the use of final keyword ?
 
 
 
+Day 5 
+==============
+
+12:00 PM - week1 wrap meeting
+https://revature.zoom.us/j/92456091980
+
+Wrapper classes
+==================
+Why we need it ?
+ A Wrapper class is a class whose object wraps or contains primitive data types.
+
+Need of Wrapper Classes
+
+They convert primitive data types into objects. Objects are needed if we wish to modify the arguments passed into a method (because primitive types are passed by value).
+
+
+int	Integer
+char	Character
+float	Float
+
+
+
+byte	1			Byte
+short	2			Short
+*int	4			Integer
+long	8			Long
+
+
+float	4
+*double	8
+
+boolean	false	1
+
+char		2		Character
+
+
+
+
+int num=65;
+char p = (char)num;		
+sout(p);				//A
+
+byte b = 10;
+int num1 = b;
+
+
+
+float salary=98.7;
+
+sout(salary+2);
+
+
+
+
+Boxing	-AutoBoxing		-Converting primitive to objects
+Unboxing - AutoBoxing		-Converting objects to primitives
+
+
+Casting
+	-Explicit
+	-Implicit
+
+Wrapper
+
+
+
+
+
+
+
+
+
 
 
 
 Annotations
+==============
+
+JDK1.5
+
+Enhanced for loop
+AutoBoxing & AutoUnboxing
+
+
+JDK1.8
+
+
+
+Annotations
+============
+Meta data information
+comments
+
+Annotations are used to provide supplemental information about a program. 
+
+Annotations start with ‘@’.
+Annotations do not change the action of a compiled program.
+Annotations help to associate metadata (information) to the program elements i.e. instance variables, constructors, methods, classes, etc.
+Annotations are not pure comments as they can change the way a program is treated by the compiler.
+
+
+Two types of annotation :
+
+1) Builtin 
+	@Override
+	@Deprecated
+	.. many many
+	@Test
+	@Order
+	
+2) Custom annotation
+
+package day5;
+
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Target;
+
+@Target(ElementType.TYPE)
+public @interface Author {
+    String authorName();
+    String purpose();
+    String dateCreated();
+}
+
+
+package day5;
+@Author(authorName = "Tufaill", purpose = "demo", dateCreated = "6/5/22")
+public class AnnotationDemo {
+
+    int num1;
+
+    @Deprecated
+    public void display(){
+
+    }
+
+    @Override
+    public String toString() {
+        return super.toString();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj);
+    }
+
+    public static void main(String[] args) {
+
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 Scanner 
+==============
+- java.util package
+- used to take input from keyboard
+
+
+package day5;
+
+import java.util.Scanner;
+
+public class ScannerDemo {
+
+    public static void main(String[] args) {
+        String name = null;
+        int age = 0;
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Please enter your name :");
+        name = scanner.next();
+        System.out.println("Please enter your age :");
+        age = scanner.nextInt();
+
+        System.out.println("Welcome : "+name+ " and your age is :"+age);
+    }
+}
+
+Exercise : 
+WAP to accept five numbers and print the sum of all the positive numbers 
+
+
+Enter five numbers :
+
+12
+12
+-9
+-7
+2
+
+Sum of all the positive numbers are : 26
+
+(Optional) - You have entered 2 negative numbers.
+
+Hint : Arrays, for loop, continue keyword
+
+
+Exercise : WAP to accept five numbers and print the number of evens and odds and also negative numbers are not allowed.
+
+
+Enter five numbers :
+
+12
+12
+-9
+	Sorry, Cant continue , because you have entered negative value
+
+
+Enter five numbers :
+12
+19
+12
+88
+23
+
+
+The count of even numbers are :3
+The count of odd numbers are :2
+
+Hint : Arrays, for loop, break keyword
+
+numbers[i]%2 == 0
+
+
+Install Maven	-https://dlcdn.apache.org/maven/maven-3/3.8.5/binaries/apache-maven-3.8.5-bin.zip
+Install Postgresql	-https://www.enterprisedb.com/postgresql-tutorial-resources-training?uuid=7c756686-90b4-4909-89ed-043e0705a76e&campaignId=7012J000001BfmaQAC
+
+Install Dweaver
+======================
+
+
+
 I/O
-Wrapper classes
+=============================================
+
+
+Deals with storing and retrieving data from files.
+
+
+Input	- Reading
+
+
+Output	-Write
+
+java.io
+		-Reader/Writer				-CharacterStreams(Correct)
+
+InputReader
+	FileInputReader
+OutputReader
+	FileOutputReader
+does not support seralization
+
+		-InputStream/OutputStream			- Byte Streams(Correct)
+FileInputStream	
+FileOutputStream
+ObjectInput
+
+
+File	- java.io package
 
 
 
-Maven 
-Basics of jUnit
+use case : listing all files in directory
+
+Write a program that creates a new file called BatchMates.txt 
+and store it in a directory named Batch. Also list the files 
+or subdirectories present in the drive/directory where 
+the directory Batch exists, stating if it is a file or directory.
+
+package day5;
+
+import java.io.File;
+import java.io.IOException;
+
+public class FileExercise {
+    public static void main(String[] args) throws IOException {
+        File f1 = new File("h:\\Batch\\BatchMates.txt");
+        File f2 = new File("h:\\Batch");
+        if(f2.exists() && f2.isDirectory()){
+            System.out.println("Folder batch already exists");
+        }
+        else {
+                f2.mkdir();
+            System.out.println("Successfully created the folder -Batch");
+        }
+        System.out.println("Creating BatchMates.txt inside "+f2.getAbsolutePath());
+        f1.createNewFile();
+    }
+}
+
+
+Enter the file name to copy : h:\\home.txt
+
+1) Not there h:\\ah.txt does not exist, Hence cannot continue
+
+2) Enter the file name to paste : h:\\house.txt
+
+Successfully copied h:\\home.txt to h:\\house.txt
+
+
+Solution
+
+package day5;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.Scanner;
+
+public class ReadWriteFileSolution {
+
+    public static void main(String[] args) throws IOException {
+
+        //user to input read file and write name ?
+        /* Please enter the full file name of the file to be copied
+        h:\\ah.txt
+            System.exit(0);
+            h:\\ah.txt does not exist, Hence cannot continue
+
+            Please enter the full file name where this to be copied
+            h:\\jj.txt
+         */
+        //create complete program
+        Scanner input = new Scanner(System.in);
+
+        //1. Asking the user to input read file name
+        System.out.println("Please enter the full name of the file to be copied:");
+        String file = input.nextLine();
+        File readFile = new File(file);
+
+        //2. checking the existence of the read file
+        if (!readFile.exists()) {
+            //if file is not there , then exiting
+            System.out.println("File does not exists, hence cannot continue");
+            System.exit(0);
+        }else{
+
+            //3. continue
+            System.out.println("Please enter the full name of the file to be pasted:");
+            String writeFileName = input.nextLine();
+            File writeFile = new File(writeFileName);
+            FileInputStream readStream = new FileInputStream(readFile);          //byte stream
+            FileOutputStream writeStream = new FileOutputStream(writeFile);
+            int i = 0;
+            while ((i = readStream.read()) != -1) {
+                writeStream.write(i);
+            }
+
+            //closing the file
+            readStream.close();
+            writeStream.close();
+
+            System.out.println("Successfully copied");
+        }
+    }
+}
 
 
 
 
+
+BufferredReader
+===============
+BufferedInputStream
+It buffers the characters so that it can get the efficient reading of characters, arrays, etc.
+
+
+======================
+Object Seralization
+	- is a process by which you reading and writing objects to a file.
+
+
+ObjectInputStream		-read
+ObjectOutputStream	-write
+
+
+
+Marker interfaces
+
+
+
+
+
+What is Wrapper class in java ?
+What is annotation ?
+What is Serilization ?
+
+
+10 minutes
 
 
 
