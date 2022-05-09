@@ -1655,6 +1655,525 @@ What is Serilization ?
 
 
 
+Week2 
+============
+
+
+
+Core Java - 
+
+Exception Hanlding
+Other topics
+
+Maven
+
+Git
+
+AWS
+
+JDBC
+
+Logback
+
+
+Day 6
+========
+
+Exception handling
+
+Three types of errors 
+1) Syntax error	
+2) Logical error
+3) Runtime errors (Exception Handling)
+
+
+
+*Throwable
+-	Error
+-	Exception
+
+
+CheckedException	- checked at compile time	- Exception and all its subclasses except RuntimeException
+UncheckedException
+
+
+
+Solution:
+
+try
+catch
+finally
+
+
+
+
+Throwable
+	Exception
+		RuntimeException
+
+
+
+
+throw
+throws	-throws the exception to the caller,delegate the exception 
+
+------------------------
+
+
+
+throw	- bring an exception
+
+
+Userdefined exception
+======================
+
+-sub class exception or runtimexception
+
+JDK1.7 	- try with resources	- no need to close the resources explicitlty
+
+
+
+
+
+JDK
+---
+
+Maven
+======
+Dependency management tool
+used for build process
+
+
+Maven is a powerful project management tool that is based on POM (project object model). It is used for projects build, dependency and documentation.
+
+
+
+pom.xml
+Project Object model
+XML file
+
+-- .M2 folder				local repository
+
+mvn repository		- mvnrepository	central repository
+
+
+
+
+
+
+
+
+JUnit Testing
+=================
+TDD - Test Driven Development
+
+Why test the code?
+
+Open source testing framework
+junit - 5 - also know as jupiter
+
+write test first
+
+Use case : We have to create a calculator
+
+add two numbers
+
+Order Tests
+------------------
+	Why ?
+	How ?
+
+Methods stubs 
+@BeforeAll	-static
+@AfterAll		-static
+
+@BeforeEach
+@AfterEach
+
+
+@Test is used to signal that the annotated method is a test method.
+@Test methods must not be private or static and must not return a value.
+
+
+
+Calculator.java
+
+package day6;
+
+public class Calculator {
+
+    public int sum(int num1,int num2){
+        return num1+num2;
+    }
+
+    public int multiply(int num1, int num2) {
+            return num1*num2;
+    }
+}
+
+
+CalculatorTest.java
+
+import day6.Calculator;
+import org.junit.jupiter.api.*;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+@TestMethodOrder(value = MethodOrderer.OrderAnnotation.class)
+public class CalculatorTest2 {
+
+    Calculator calc;
+    int expected =0;
+    @BeforeAll
+    public static void beforeAll(){
+        System.out.println("Welcome to Calculator Test");
+
+    }
+    @AfterAll
+    public static void afterAll(){
+        System.out.println("Congratulations your tests completed.");
+    }
+    @BeforeEach
+    public  void setUp(){
+        calc = new Calculator();
+        expected = 20;
+        System.out.println("before each");
+    }
+    @AfterEach
+    public  void tearDown(){
+        calc= null;
+        expected =0;
+        System.out.println("after each");
+    }
+    @Test
+    @DisplayName("Testing sum with two whole numbers - 2nd")
+    @Order(2)
+    public void testCalculatorSum1(){
+        System.out.println("testCalculatorSum1 called");
+              int actual =   calc.sum(10,10);
+              assertEquals(expected,actual);
+    }
+
+    @Test
+    @DisplayName("Testing sum with one whole number and zero - 3rd")
+    @Order(3)
+    public void testCalculatorSum2(){
+        System.out.println("testCalculatorSum2 called");
+        int actual =   calc.sum(20,0);
+        assertEquals(expected,actual);
+    }
+
+    @Test
+    @DisplayName("Testing sum with one whole number and negative number - 1st")
+    @Order(1)
+    public void testCalculatorSum3(){
+        System.out.println("testCalculatorSum3 called");
+        int actual =   calc.sum(30,-10);
+        assertEquals(expected,actual);
+    }
+
+    @Test
+    @DisplayName("Testing multiply with two whole numbers ")
+    @Order(4)
+    public void testCalculatormultiply1(){
+        System.out.println("testCalculatorMultiply1 called");
+        int actual =   calc.multiply(10,2);
+        assertEquals(expected,actual);
+    }
+}
+
+
+
+Testing Exception
+===================Hands-on 
+Create two test cases to check the divide method.
+
+calc.divide(40,2);
+
+
+
+calc.divide(40,0);		-	ArithmeticException
+
+
+
+
+15 minutes(4:55 PM EST)
+
+Solution :
+
+import Week2Day1.Calculator;
+import org.junit.jupiter.api.*;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+@TestMethodOrder(value = MethodOrderer.OrderAnnotation.class)
+
+public class CalculatorTest {
+    Calculator calc;
+    int expected = 0;
+
+    @BeforeAll
+    public static void beforeAll(){
+        System.out.println("Welcome to the Calculator Test");
+    }
+
+    @AfterAll
+    public static void afterAll(){
+        System.out.println("Thank you for using Calculator Test");
+    }
+
+    @BeforeEach
+    public void setUp(){
+        calc = new Calculator();
+        expected = 20;
+        System.out.println("Before each");
+    }
+
+    @AfterEach
+    public void tearDown(){
+        calc = null;
+        expected = 0;
+    }
+
+    // Testing
+    @Test
+    @DisplayName("Subtraction Test1")
+    @Order(4)
+    public void testCalculatorDifference(){
+        int actual = calc.subtract(22, 2);
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    @DisplayName("Subtraction Test2")
+    @Order(5)
+    public void testCalculatorDifference2(){
+        int actual = calc.subtract(40, 20);
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    @DisplayName("Subtraction Test3")
+    @Order(6)
+    public void testCalculatorDifference3(){
+        int actual = calc.subtract(19, -1);
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    @DisplayName("Addition Test1")
+    @Order(1)
+    public void testCalculator(){
+        int actual = calc.add(18, 2);
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    @DisplayName("Addition Test2")
+    @Order(2)
+    public void testCalculator2(){
+        int actual = calc.add(22, -2);
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    @DisplayName("Addition Test3")
+    @Order(3)
+    public void testCalculator3(){
+        int actual = calc.add(20, 0);
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    @DisplayName("Multiplication Test1")
+    @Order(7)
+    public void testCalculatorMultiplyTest1(){
+        int actual = calc.multiply(20, 1);
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    @DisplayName("Multiplication Test2")
+    @Order(8)
+    public void testCalculatorMultiplyTest2(){
+        int actual = calc.multiply(10, 2);
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    @DisplayName("Multiplication Test3")
+    @Order(9)
+    public void testCalculatorMultiplyTest3(){
+        int actual = calc.multiply(5, 4);
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    @DisplayName("Testing convert to numbers \"20\" ")
+    @Order(12)
+    public void testConvertNumbers1(){
+        System.out.println("testConvertNumbers1 called");
+        int actual =   calc.convertToNumber("20");
+        assertEquals(expected,actual);
+    }
+
+    //Handle exception in junit
+    @Test
+    @DisplayName("Testing convert to numbers \"Twenty\" ")
+    @Order(13)
+    public void testConvertNumbers2(){
+        System.out.println("testConvertNumbers2 called");
+        assertThrows(NumberFormatException.class, () -> {
+            int actual =   calc.convertToNumber("Twenty");
+            assertEquals(expected,actual);
+        });
+    }
+
+    @Test
+    @DisplayName("Division Test1")
+    @Order(10)
+    public void testCalculatorDivideTest1(){
+        int actual = calc.divide(40, 2);
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    @DisplayName("Division Test2")
+    @Order(11)
+    public void testCalculatorDivideTest2(){
+        System.out.println("divideTest2 called");
+        assertThrows(ArithmeticException.class, () -> {
+            int actual = calc.divide(40, 0);
+            assertEquals(expected, actual);
+        });
+    }
+
+}
+
+
+
+
+=======================
+
+
+Quiz has been assigned.
+
+
+
+
+
+
+
+Group Discussion ?
+
+What is exception handling ?
+What is try /catch and finally block ?
+**what is the difference between throw and throws
+why we need custom exception?
+**How to create custom  exception ?
+
+** What is junit ?
+How to write test in junit?
+List some junit annotations and usage?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+. "Collections" is?
+1534
+QUESTION TYPE:Best Choice
+DON'T EVALUATE:NO
+STICKY:NO
+TAGS:Core JavaJava Collections
+CATEGORY:Java
+SCORE:1
+ANSWER OPTION(S):
+NO	TEXT	CORRECT ANSWER?
+1	
+The interface that all java collections implement
+
+NO
+2	
+A class filled with static methods used to manipulate collections
+
+YES
+
+---------
+
+43. Which interface does not extend the Collection interface?
+1535
+QUESTION TYPE:Best Choice
+DON'T EVALUATE:NO
+STICKY:NO
+TAGS:Core JavaJava Collections
+CATEGORY:Java
+SCORE:1
+ANSWER OPTION(S):
+NO	TEXT	CORRECT ANSWER?
+1	
+List
+
+NO
+2	
+Set
+
+NO
+3	
+Queue
+
+NO
+4	
+Map
+
+YES
+
+
+
+
+
 
 
 
