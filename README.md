@@ -2460,20 +2460,55 @@ group : (hr) - tufail,daniel
 
 tufail:)  hello.txt
 
+/etc/passwd
+/etc/group
 
 
 
 
+ sudo useradd tufail		-- Add a user
+
+
+ sudo passwd ahmed		- change password
+
+ su tufail				- switch user
+
+
+whoami
+
+ sudo userdel ahmed		- delete
+
+
+
+ubuntu@ip-172-31-20-106:~$ sudo groupadd software
+ubuntu@ip-172-31-20-106:~$ sudo useradd -g software mohammad
+ubuntu@ip-172-31-20-106:~$ sudo usermod -Gsoftware tufail
+ubuntu@ip-172-31-20-106:~$ id software
+id: ‘software’: no such user
+ubuntu@ip-172-31-20-106:~$ id tufail
+uid=1001(tufail) gid=1001(tufail) groups=1001(tufail),1002(software)
+ubuntu@ip-172-31-20-106:~$ id mohammad
+uid=1002(mohammad) gid=1002(software) groups=1002(software)
 
 
 
 
+richard
+daniel
+mohan
+trump
+
+groups
+hr
+	daniel
+	mohan
+
+software
+	richard
+	trump
 
 
-
-
-
-
+* please remove mohan from the user list
 
 
 
