@@ -2516,6 +2516,44 @@ Editors
 vi
 pico
 
+Shell Scripting
+=============
+	- programming techniques
+	- set of statements
+
+
+
+
+
+
+SQL
+----------
+Postgres
+
+DBeaver - Universal sql commands - Great UI 
+
+
+https://dbeaver.io/files/dbeaver-ce-latest-x86_64-setup.exe
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
