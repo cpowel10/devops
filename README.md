@@ -2170,6 +2170,309 @@ Map
 
 YES
 
+**Details of collections later
+
+
+Written Evalutaion	- Quiz
+
+Day 7
+
+Git
+AWS
+Unix
+
+
+Any questions ?
+
+Git 
+-----------
+
+
+
+
+
+
+
+
+
+Tom,Dick, Harry,Ahmed,Elisa
+
+---------------------------------------
+Day 1
+	create controller
+Day 2	
+	update the code in controller by Tom
+
+
+
+
+
+git commands
+=============
+git init	- 	create en empty local repository
+
+
+
+  git config --global user.name "Tufail Ahmed"
+
+
+git config --global user.email "tufailahmedkhan@gmail.com"
+
+
+
+README.md	- welcome file of your repository
+
+
+ git status
+
+ git add .			-- add all the files
+
+git commit -m "message"
+
+git push
+
+
+
+how can we add only one file
+git add bye.txt
+git add 
+
+
+Create a repository named revature and put README.md in local as well as central repo
+Create welcome.txt and write some message.
+commit the changes in local and then in central repository
+
+
+
+
+
+
+
+equals() vs ==?
+equals 	- values				true
+==	- reference of the two objects	false
+
+String str1="Git";
+String str2= new String("Git");
+
+
+
+-----------------
+Branching
+rebase
+merge
+
+
+git init
+git add .
+git commit -m "message"
+git push
+
+README.md	-
+
+
+tufai@DESKTOP-09F8TAM MINGW64 /f/DMS (jayden)
+$ git branch daniel
+
+tufai@DESKTOP-09F8TAM MINGW64 /f/DMS (jayden)
+$ git checkout daniel
+Switched to branch 'daniel'
+
+tufai@DESKTOP-09F8TAM MINGW64 /f/DMS (daniel)
+$ git add JDBCDemo1.java
+
+tufai@DESKTOP-09F8TAM MINGW64 /f/DMS (daniel)
+$ git commit -m "daniel finished his task"
+[daniel 935a7f3] daniel finished his task
+ 1 file changed, 8 insertions(+)
+ create mode 100644 JDBCDemo1.java
+
+tufai@DESKTOP-09F8TAM MINGW64 /f/DMS (daniel)
+$ git push origin daniel
+Enumerating objects: 4, done.
+Counting objects: 100% (4/4), done.
+Delta compression using up to 4 threads
+Compressing objects: 100% (3/3), done.
+Writing objects: 100% (3/3), 459 bytes | 459.00 KiB/s, done.
+Total 3 (delta 1), reused 0 (delta 0), pack-reused 0
+remote: Resolving deltas: 100% (1/1), completed with 1 local object.
+remote:
+remote: Create a pull request for 'daniel' on GitHub by visiting:
+remote:      https://github.com/tufailahm/DMS/pull/new/daniel
+remote:
+To https://github.com/tufailahm/DMS.git
+ * [new branch]      daniel -> daniel
+
+tufai@DESKTOP-09F8TAM MINGW64 /f/DMS (daniel)
+**	Create four branches - java,sql,docker,jenkins and push one file in each of these branch.
+
+
+
+
+Merging
+=============
+**master branch will always have production ready code
+java
+	- AbstractClassDemo.java
+
+
+AWS
+==============
+Amazon Web Services
+
+What ?
+
+
+ShoppingApp
+
+security
+db
+
+Linux/Unix
+DB				- RDS
+
+Virtual machine	/ installation
+
+
+
+Use case : For learning UNIX, we need a linux machine. 
+Solution : You can create EC2 instances
+
+EC2- Ubuntu	- 54.90.196.239		/keypair-downloads
+		- 52.90.1.81		/devops2
+
+Putty - remote servers
+
+===================ec2 INSTANCES for windows machine
+
+54.82.66.212
+172.31.16.58
+
+
+Administrator
+Ssz24Rm5GtHLi.8%i6y)g;h4@eVbL4k)
+Ssz24Rm5GtHLi.8%i6y)g;h4@eVbL4k)
+
+Second Windows
+User name	Administrator
+Password	
+rqahBVXv3NC7)$!ds!S@wnO9hXxOh(qc
+
+
+Unix
+==================
+O.S
+most popular alongwith windows
+Linux
+
+
+Unix File system
+
+/
+
+	bin
+
+	dev
+
+	home
+
+		ubuntu
+
+			sql/
+
+			jenkins
+
+	etc
+
+	..
+	
+	..
+
+
+Absolute path	- doesnt require where are you
+	
+	cp
+
+Relative Path
+
+
+Day 8
+============
+
+Unix
+SQL = Postgresql
+
+
+54.87.50.42
+
+Permission in UNIX
+----------------------------
+
+users/owner
+group
+others
+
+read
+write
+execute
+
+U   G   O
+rwxrwxr-x
+
+  U   G  O
+-rw-rw-r--
+
+chmod +	- grant
+           -  - revoke
+
+
+chmod ugo-rwx records.txt
+
+Numberic :
+
+4	- read
+2	- write
+1	- execute
+
+chmod 000 records.txt	- 	remove all the permissions
+chmod 777 records.txt	- 	grant all the permissions to everyone
+chmod 745 records.txt	- 	-rwxr--r-x 
+
+Use case : -rw--w---x
+
+chmod  621 records.txt
+
+
+--wxrw-r-x		??
+
+chmod 365	records.txt	
+
+
+chmod ug+rw records.txt
+
+User management 
+
+tufail - U
+daniel - G
+richard - O
+
+group : (hr) - tufail,daniel
+
+tufail:)  hello.txt
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
