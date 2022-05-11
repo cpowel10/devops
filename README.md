@@ -2511,7 +2511,10 @@ software
 * please remove mohan from the user list
 
 
-
+Editors
+----------------
+vi
+pico
 
 
 
