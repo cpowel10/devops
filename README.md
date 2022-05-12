@@ -2535,10 +2535,12 @@ DBeaver - Universal sql commands - Great UI
 
 https://dbeaver.io/files/dbeaver-ce-latest-x86_64-setup.exe
 
+https://github.com/tufailahm/devops/blob/master/db_scripts.zip
 
 
+Todo 
 
-
+**Stack & Heap
 
 
 
