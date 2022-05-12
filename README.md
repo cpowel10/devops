@@ -2545,6 +2545,511 @@ Todo
 
 
 
+Day 9
+=============
+
+SQL 
+*SQL Queries
+
+Structurted Query Language
+
+
+
+https://github.com/tufailahm/devops/blob/master/sql_ppt.zip
+
+https://github.com/tufailahm/devops/blob/master/db_scripts.zip
+**sub languages
+** DQL - 	select
+** DML - insert , delete , update
+** DDL - create,alter,drop,truncate
+** DCL - grant, revoke
+** TCL - commit, rollback , savepoint
+
+
+** Joins
+** Subqueries
+** Set operators
+** Procedures
+
+
+select is a command by which retrieve the data.
+
+select first_name as "First Name" ,salary ,manager_id  from employees e ;
+
+select * from employees e  where salary > 30000 ;
+
+--AND,OR,NOT, IN, NOT IN , NULL, BETWEEN
+select * from employees e  where salary > 30000 ;
+select * from employees e  where salary > 10000 and manager_id = 110 ;
+select * from employees e  where salary > 10000 OR manager_id = 110 ;
+select * from employees e  where salary between 10000 and 20000;
+select * from employees e  where job_id = 'IT_PROG'
+--wild card % AND _ - like 
+select * from employees e  where first_name = 'A%'	-- will not work because of =
+select * from employees e  where first_name like  'A%'	-- will work because of like
+select * from employees e  where first_name like  'T%'	-- will work because of like
+
+select * from employees e  where first_name like  '_a%'	-- 
+
+select * from employees e  where first_name like  '%a%'	
+
+--hands on - list out all the names of employees that ends with a
+--??
+
+--using or 
+select * from employees e  where job_id = 'IT_PROG' or job_id = 'AD_PRES' or job_id = 'PU_CLERK'
+
+--using in
+select * from employees e  where job_id in ('IT_PROG', 'AD_PRES' ,'PU_CLERK')
+
+select * from employees e  where job_id not in ('IT_PROG', 'AD_PRES' ,'PU_CLERK')
+
+--print all the employees who have not been allocated to a manager
+select * from employees e  where manager_id  is null;
+
+--hands on - list out all the names of employees that ends with a
+-- print first_name,salary of all the employees who reports to manager 103
+-- print all the employees who is getting salary more than 10,000 and also works in department 60
+-- print all the employees whose last name starts with L
+-- print all the employees (first_name,hire_date) who got hired after 25-06-05
+
+
+
+Functions
+===========
+
+Aggregate functions 	- sum,max,min,avg,count
+
+*** Group By clause
+
+--Find max salary in each department
+select department_id, max(salary) from employees;
+
+
+group by clause - The SQL GROUP BY clause is used in collaboration with the SELECT statement to arrange identical data into groups. 
+having clause - can be used only with group by and it is used to restrict the data in group by clause for aggregate functions.
+The HAVING clause was added to SQL because the WHERE keyword cannot be used with aggregate functions
+
+
+========Joins in SQL====================
+
+employees	departments
+first_name	, department_name
+
+Neena		 Executive
+
+Joins are used to display the data from more than one table using a join condition.
+
+A JOIN clause is used to combine rows from two or more tables, based on a related column between them
+
+
+Natural
+
+
+Equi/Inner/Normal Join
+select first_name, salary, d.department_name , l.city from employees e join departments d 
+on e.department_id = d.department_id 
+join locations l on d.location_id = l.location_id;
+
+
+** Difference between inner join and outer join
+
+
+* 
+ * Inner Join: Returns only the rows that are common in both tables.
+ * Outer Joins: 
+ * 			   Full Outer Join:  Returns all rows from both tables.
+ *             Left Outer Join:  Returns all rows from the left table plus the rows that the right table have in common.
+ *             Right Outer Join: Returns all rows from the left table plus the rows that the right table have in common.
+ * Self Join:  A self-join is a regular join that joins a table to itself. 
+ *             In practice, we typically use a self join to compare rows within the same table.
+ *             To form a self-join, you specify the same table twice with different table aliases and provide the join 
+ *             predicate after the ON keyword.
+ */
+
+
+-- find all the information about employees
+select * from employees e 
+
+select * from departments d 
+
+select * from jobs
+
+select * from locations l 
+
+select * from countries c 
+
+--WHERE 
+-- *
+
+select first_name as "First Name" ,salary ,manager_id  from employees e ;
+
+select * from employees e  where salary > 30000 ;
+
+--AND,OR,NOT, IN, NOT IN , NULL, BETWEEN
+select * from employees e  where salary > 30000 ;
+select * from employees e  where salary > 10000 and manager_id = 110 ;
+select * from employees e  where salary > 10000 OR manager_id = 110 ;
+select * from employees e  where salary between 10000 and 20000;
+select * from employees e  where job_id = 'IT_PROG'
+--wild card % AND _ - like 
+select * from employees e  where first_name = 'A%'	-- will not work because of =
+select * from employees e  where first_name like  'A%'	-- will work because of like
+select * from employees e  where first_name like  'T%'	-- will work because of like
+
+select * from employees e  where first_name like  '_a%'	-- 
+
+select * from employees e  where first_name like  '%a%'	
+
+--hands on - list out all the names of employees that ends with a
+--??
+
+--using or 
+select * from employees e  where job_id = 'IT_PROG' or job_id = 'AD_PRES' or job_id = 'PU_CLERK'
+
+--using in
+select * from employees e  where job_id in ('IT_PROG', 'AD_PRES' ,'PU_CLERK')
+
+select * from employees e  where job_id not in ('IT_PROG', 'AD_PRES' ,'PU_CLERK')
+
+--print all the employees who have not been allocated to a manager
+select * from employees e  where manager_id  is null;
+
+--hands on - list out all the names of employees that ends with a
+
+--hands on - list out all the names of employees that ends with a
+select * from employees e where first_name like '%a';	--ends with a
+
+
+-- print first_name,salary of all the employees who reports to manager 103
+-- print all the employees who is getting salary more than 10,000 and also works in department 60
+-- print all the employees whose last name starts with L
+-- print all the employees (first_name,hire_date) who got hired after 25-06-05
+
+--print first)name and salary of employees who report to manager 103
+select first_name as "First Name", salary from employees e where manager_id = 103;
+
+--print all the employees who has salary more than 10000 and works in dept 60
+select * from employees e where salary > 10000 and department_id = 60;
+
+--print all the employees whose last name starts with L
+select * from employees e where last_name like 'L%';
+
+--print all employees (first_name, hire_date) who got hired after 25-06-05
+select first_name as "First Name", hire_date from employees e where hire_date >= '25-06-05';
+
+**--distinct
+
+select distinct department_id  from employees e 
+
+
+select column_name, data_type, character_maximum_length, column_default, is_nullable
+from INFORMATION_SCHEMA.COLUMNS where table_name = 'employees'
+
+** --sorting - order by 
+select first_name ,salary , salary *12 AnnualSalary from employees e 
+order by AnnualSalary desc ;
+
+select first_name ,salary  from employees e 
+order by salary,first_name ;
+
+
+select first_name ,salary  from employees e 
+order by 1;
+
+
+=========================
+--WAQ to sort the employees based on  hire date
+
+----functions 
+select upper('Tufail') 
+select lower('AHMED')
+select substring('ahmed',2,4) 
+
+select * from employees e where lower(first_name) = 'steven';
+select * from employees e where upper(first_name) = 'NEENA';
+
+select upper(first_name) from employees e ;
+
+
+
+
+==========
+WAQ to print like this
+
+select  *from  employees e ;
+
+STEVEN SALARY IS 24000 $US
+NEENA SALARY IS 17000 $US
+
+select upper(concat(first_name,' salary is ',salary,' $us')) from employees e 
+
+
+select * from employees e ;
+
+---------Date functions
+
+select hire_date-CURRENT_DATE  from employees e ;
+
+select  to_date('12/05/2009') - hire_date from employees e ;
+
+SELECT AGE(timestamp '2001-04-10', timestamp '1957-06-13');
+
+SELECT CURRENT_TIME;
+
+  SELECT DATEDIFF(to_date(hire_date), CURRENT_DATE) from employees e 
+  
+ --- To Fix 
+
+  
+ --Aggregate functions
+  
+  select count(*) from employees e ;
+  
+   select count(commission_pct) from employees e ;
+   
+  select max(salary),min(salary),avg(salary), sum(salary) from employees e ;
+ 
+ select max(first_name) from employees e
+  select min(first_name) from employees e
+ select max(hire_date) from employees e 
+ 
+ 
+ ---WAQ to count how many unique departments are there ?
+
+ 
+ select count(distinct department_id) from employees e ;
+
+  select distinct department_id from employees e ;
+ 
+ 
+
+--Find max salary in each department
+select department_id, max(salary) from employees
+group by department_id
+order by department_id 
+
+-- Count number of employees reporting to each manager
+select manager_id , count(employee_id) from employees e 
+group by manager_id order by manager_id ;
+
+
+--Count the number of employees working in each department 
+select department_id , count(employee_id) from employees e 
+group by department_id 
+order by department_id 
+
+
+-- Count number of employees reporting to each manager and display only details of managers 
+-- who are having more than 10 employees report to them
+--** ggregate functions are not allowed in WHERE
+select manager_id , count(employee_id) from employees e 
+where count(employee_id) > 10
+group by manager_id order by manager_id ;
+
+--Solution is us having clause
+
+select manager_id , count(employee_id) from employees e 
+group by manager_id 
+having count(employee_id) > 7
+order by manager_id ;
+
+
+----Joins
+select * from employees e 
+
+select * from departments d 
+
+--NATURAL JOIN
+
+select first_name,department_name from employees e natural join departments d  
+
+select department_name, city from departments d2  natural join locations l 
+
+--using
+
+select e.first_name ,e.employee_id ,e.salary ,d.department_name from employees e join departments d 
+using (department_id)
+
+--on
+-- List all the managers department 
+select e.first_name ,e.employee_id ,e.salary ,d.department_name from employees e join departments d 
+on (e.employee_id = d.manager_id)
+
+
+-- WAQ to display first_name,salary ,department_name, city
+--Three way joins
+ select first_name, salary, department_name, city from employees e join departments d 
+using (department_id)
+join locations l
+using (location_id) ;
+
+
+select first_name, salary, department_name, city from employees e 
+join departments d on e.employee_id = d.manager_id  
+join locations l on l.location_id = d.location_id 
+and (d.manager_id = 149)
+order by salary desc;
+
+--self join
+
+self join
+
+select * from employees e 
+
+Neena reports to Steven
+Bruce reports to Alexander
+
+select employee.first_name || ' reports to ' || manager.first_name 
+from employees employee join employees manager
+on manager.employee_id  = employee .manager_id  
+
+
+---Inner Join
+
+select first_name, salary, department_name, city from employees e 
+join departments d on e.department_id = d.department_id
+join locations l on l.location_id = d.location_id 		//106
+
+
+//employees who does not belong to any department is not showing up in inner join
+
+//departments which does not have any employee is also not showing up in inner join
+
+
+---Outer join 
+select *from employees e where department_id is null;
+select *from departments d  where manager_id  is null;
+
+--left
+select first_name, salary, department_name from employees e 
+left outer join departments d on e.department_id = d.department_id
+
+
+
+--right 
+select first_name, salary, department_name from employees e 
+right outer join departments d on e.department_id = d.department_id
+
+--full
+select first_name, salary, department_name from employees e 
+full outer join departments d on e.department_id = d.department_id
+
+--------sub query
+
+--who is getting better salary than Neena
+
+select first_name from employees e where salary > 17000
+
+select salary from employees e where first_name = 'Neena'
+
+--subquery
+select first_name from employees e where salary > ( select salary from employees e where first_name = 'Neena')
+
+--find out the name of the person who has been hired on the same date neena was hired
+
+
+
+select first_name from employees e where hire_date  = (select hire_date  from employees e where first_name = 'Neena')
+
+--: more than one row returned by a subquery used as an expression
+select first_name from employees e where hire_date  IN (select hire_date  from employees e where first_name = 'Alexander')
+
+
+select * from employees e 
+
+-- GET ME THE NAME/s of the employee/s who works in same job_id as Lex
+select first_name from employees e where job_id in (select job_id from employees e where first_name = 'Lex')
+
+-- get the details of the employee who is getting maximum salary
+select * from employees e where salary = (select max(salary) from employees e);
+
+
+
+---SET Operators
+create table retired_employees
+as
+select * from employees e  where employee_id in (108,109,110,111,112)
+
+delete from employees where employee_id in (108,109);
+
+employees		not find 108,109
+retured_employees	not find 100 and others 
+but common 110,111,112 
+
+select count(*) from employees e 				//107
+select count(*) from retired_employees e 		//5
+
+
+---union
+select * from employees
+union
+select * from retired_employees	
+
+---union all
+select * from employees
+union all
+select * from retired_employees	
+
+
+---insersect		-- only common datas
+select * from employees
+intersect
+select * from retired_employees	
+
+--minus is not supported in postgres
+
+
+
+
+
+
+
+
+
+
+
+ToDo
+
+	Person p = new Employee();
+		
+		Object o = p; // Up-Casting
+		// Moving our reference variable UP the inheritance tree
+		
+		Employee e = (Employee) o; // Down-Casting
+		// Moving our reference variable DOWN the inheritance tree
+		// Potentially dangerous
+		
+//		Zoo z2 = (Zoo) o;
+		
+		// The instanceof operator will return true if the object IS-A instance of the Class
+		// Then the down-cast would be safe
+		if(o instanceof Zoo) {
+			Zoo z2 = (Zoo) o;
+		}
+
+
+Reference links :
+
+## Useful Links
+* [Git Cheat Sheet](https://www.git-tower.com/blog/git-cheat-sheet)
+* [Git Basics](https://youtu.be/0fKg7e37bQE)
+* [Git Team Basics](https://youtu.be/oFYyTZwMyAg)
+* [Hacker Rank](https://www.hackerrank.com)
+  * Good source of practice. Use it often for practice.
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
