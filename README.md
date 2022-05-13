@@ -3039,13 +3039,336 @@ Reference links :
   * Good source of practice. Use it often for practice.
 
 
+Day 10
+---------------
+
+SQL - DDL, TCL, DML
+
+JDBC
+
+Design Patterns
+	- Creational
+	- Singleton
+
+
+
+----------Transaction
+Unit of work	
+
+insert into emp	
+update salary
+update pf
+updates tax
+
+**ACID -A transaction is a single logical unit of work that accesses and possibly modifies the contents of a database. Transactions access data using read and write operations. 
+Atomicity	- Either everything should be done or none
+Consistency - 
+Isolation
+Durability
+
+
+-------
+commit
+rollback
+savepoint
+
+Isloation Levels
+-------------------
+
+Dirty Read – A Dirty read is a situation when a transaction reads data that has not yet been committed.
+ For example, Let’s say transaction 1 updates a row and leaves it uncommitted, meanwhile, Transaction 2 reads the updated row. If transaction 1 rolls back the change, transaction 2 will have read data that is considered never to have existed.
+
+Non Repeatable read – Non Repeatable read occurs when a transaction reads the same row twice and gets a different value each time. For example, suppose transaction T1 reads data. Due to concurrency, another transaction T2 updates the same data and commit, Now if transaction T1 rereads the same data, it will retrieve a different value.
+
+
+Phantom Read – Phantom Read occurs when two same queries are executed, but the rows retrieved by the two, are different. For example, suppose transaction T1 retrieves a set of rows that satisfy some search criteria.
+ Now, Transaction T2 generates some new rows that match the search criteria for transaction T1. If transaction T1 re-executes the statement that reads the rows, it gets a different set of rows this time.
+
+Based on these phenomena, The SQL standard defines four isolation levels : 
+
+ 
+
+Read Uncommitted – Read Uncommitted is the lowest isolation level.
+ In this level, one transaction may read not yet committed changes made by other transactions, thereby allowing dirty reads. 
+At this level, transactions are not isolated from each other.
+
+
+Read Committed – This isolation level guarantees that any data read is committed at the moment it is read.
+ Thus it does not allow dirty read. The transaction holds a read or write lock on the current row, and thus prevents other transactions from reading, updating, or deleting it.
+
+Repeatable Read – This is the most restrictive isolation level. The transaction holds read locks on all rows it references and writes locks on referenced rows for update and delete actions. Since other transactions cannot read, update or delete these rows, consequently it avoids non-repeatable read.
+
+
+Serializable – This is the highest isolation level. A serializable execution is guaranteed to be serializable. Serializable execution is defined to be an execution of operations in which concurrently executing transactions appears to be serially executing.
 
 
 
 
 
+Constraints
+
+PK
+FK	- Referential Integrity
+Check
+default
 
 
+Composite Key
+------------------
+ProductId	 	scancode
+1		1
+1		2
+
+--------Tow ways to create constraints
+Column Level
+Table level
+
+
+
+Next QC : Week2 contents - Tue 5/17/2022 11:00 AM - 1:00 AM
+
+
+--Referential Integrity
+
+**Referential integrity refers to the relationship between tables. Because each table in a database must have a primary key, this primary key can appear in other tables because of its relationship to data within those tables. When a primary key from one table appears in another table, it is called a foreign key .
+
+-- FK 
+
+Student
+	studentId		studentName   	courseId
+	101		Ahmed		3
+	102		Mohammad	190		XX	
+
+Course
+	courseId		courseName
+	1		Java
+	2		Docker
+	3		AWS
+
+
+
+---------------
+
+Movie
+	movieId
+	movieName
+	directorId
+
+
+Director
+
+	directorId
+	directorName
+	directorSpeciality
+
+
+script1.sql
+
+DROP TABLE IF EXISTS public.users CASCADE;
+-- Completely remove the users table, regardless of any rlationships
+-- Without the CASCADE keyword, this DROP statement would fail
+-- if there were any relationships that needed to be upheld
+-- Such as Foreign Keys
+
+-- CASCADE operations are VERY dangerous and couble be very large scale
+-- DO NOT do this on ANY database that you are concerned about maintaining data on
+
+CREATE TABLE public.users (
+	-- We list our columns along with their types
+	-- Along with any constraints
+	-- column_name DATATYPE CONSTRAINTS
+	id SERIAL PRIMARY KEY,
+	-- the SERIAL datatype is a type in postgres specifically
+	-- that provides auto-incrementing for our primary keys
+	-- This means that when inserting a new record, we can ignore
+	-- inserting a value for the primary key, and it will be
+	-- generated for us
+	-- Aside from that, it is effectively just an INTEGER
+	first_name VARCHAR (2000) NOT NULL CHECK (LENGTH(first_name) > 0),
+	last_name VARCHAR (2000) NOT NULL CHECK (LENGTH(last_name) > 0),
+	email VARCHAR (250) UNIQUE,
+	age INTEGER NOT NULL DEFAULT 0 CHECK (age >= 0),
+	supervisor INTEGER
+);
+
+ALTER TABLE public.users
+	ADD CONSTRAINT users_supervisor_fk
+	FOREIGN KEY (supervisor) REFERENCES users (id);
+-- ALTER TABLE schema.table
+--	ADD CONSTRAINT constraint_name
+--  CONSTRAINT_TYPE (column) [REFERENCES table (column)]
+
+/*
+This is a multi-line
+comment
+*/
+
+DROP TABLE IF EXISTS public.phonenumbers CASCADE;
+
+CREATE TABLE public.phonenumbers (
+	id SERIAL PRIMARY KEY,
+	user_id INTEGER NOT NULL REFERENCES public.users (id),
+	home VARCHAR (20),
+	mobile VARCHAR (20),
+	work VARCHAR (20)
+);
+
+DROP SCHEMA IF EXISTS project0 CASCADE;
+
+CREATE SCHEMA project0;
+
+DROP TABLE IF EXISTS public.accounts CASCADE;
+
+CREATE TABLE accounts (
+	id SERIAL PRIMARY KEY,
+	owner_id INTEGER NOT NULL REFERENCES users (id),
+	balance NUMERIC (40, 2) NOT NULL DEFAULT 0
+);
+
+INSERT INTO public.users (first_name, last_name) VALUES ('Matthew', 'Oberlies');
+
+SELECT first_name, last_name FROM users;
+
+SELECT * FROM users;
+
+-- You can construct custom columns from the columns within the tables
+-- The || is performing string concatenation
+-- Can use the AS keyword as an alias
+SELECT first_name || ' ' || last_name AS full_name FROM users;
+
+INSERT INTO public.accounts (owner_id) VALUES (1);
+
+INSERT INTO public.users (first_name, last_name) VALUES ('Jared', 'Malkin');
+
+INSERT INTO public.accounts (owner_id, balance) VALUES (2, 3);
+
+INSERT INTO public.users (first_name, last_name) VALUES ('Fatima', 'Melgar');
+
+SELECT * FROM public.users INNER JOIN public.accounts
+	ON public.users.id = public.accounts.owner_id;
+
+SELECT first_name || ' ' || last_name AS full_name, balance FROM public.users INNER JOIN public.accounts
+	ON public.users.id = public.accounts.owner_id;
+
+SELECT public.accounts.id AS account_id, public.users.id AS user_id, balance FROM public.users INNER JOIN public.accounts
+	ON public.users.id = public.accounts.owner_id;
+
+-- You can nest SELECT statements by creating sub-queries
+-- This has a lot of useful use-cases
+-- However, you must be careful about ambiguity
+SELECT sub1.user_id AS user_id, sub1.balance FROM
+	(SELECT public.accounts.id AS account_id, public.users.id AS user_id, balance FROM public.users INNER JOIN public.accounts
+		ON public.users.id = public.accounts.owner_id) AS sub1;
+
+SELECT * FROM (
+	SELECT public.accounts.id AS account_id, public.users.id AS user_id, balance FROM public.users INNER JOIN public.accounts
+			ON public.users.id = public.accounts.owner_id) AS sub1
+	WHERE sub1.balance > 0;
+
+-- WHERE
+-- ORDER BY
+-- GROUP BY
+-- HAVING
+-- LIMIT
+-- HAVING and WHERE are almost the exact same clause
+-- The difference is that WHERE applies the filter BEFORE data is grouped
+-- And HAVING applies the filter AFTER the data is grouped
+
+DROP TABLE IF EXISTS one CASCADE;
+DROP TABLE IF EXISTS two CASCADE;
+
+CREATE TABLE one (
+	one INTEGER PRIMARY KEY,
+	two INTEGER
+);
+
+CREATE TABLE two (
+	one INTEGER PRIMARY KEY,
+	two INTEGER
+);
+
+INSERT INTO one VALUES (1, 1), (2, 2);
+INSERT INTO two VALUES (1, 1), (2, 1);
+
+-- All SET operations only operate on results that have
+-- the same number and type of columns
+
+-- The UNION operator will combine all results together
+-- However, it will not include duplicates
+SELECT * FROM public.one UNION SELECT * FROM public.two;
+
+-- UNION ALL does include duplicates
+SELECT * FROM public.one UNION ALL SELECT * FROM public.two;
+
+-- INTERSECT will only include matching results
+SELECT * FROM public.one INTERSECT SELECT * FROM public.two;
+
+-- EXCEPT will keep results from the left view, and remove any matching
+-- results that came from the right
+SELECT * FROM public.one EXCEPT SELECT * FROM public.two;
+
+-- SQL supports scalar and aggregate functions that can be used
+-- along with SELECT statements
+
+-- Scalar functions are functions that operate on only a single input
+-- and produce 1 output for each input
+-- e.g UPPER, LOWER, TRIM, SIN, COS, TAN
+
+-- Aggregate functions are functions that operate on an entire column as input
+-- and produce 1 output for all inputs
+-- e.g SUM, AVG, etc
+
+SELECT SIN(one) FROM one;
+
+SELECT SUM(one) FROM two;
+
+SELECT AVG(LENGTH(first_name)) FROM users;
+
+SELECT AVG(LENGTH(last_name)) FROM users;
+
+INSERT INTO public.users (first_name, last_name, age) VALUES ('Rubeus', 'Hagrid', 33);
+
+SELECT age, AVG(LENGTH(first_name)) AS first_name_length_avg FROM users GROUP BY age;
+
+-- The below query does not work, since we must either group by id OR use id in an aggregate function
+SELECT id, age, AVG(LENGTH(last_name)) AS last_name_length_avg FROM users GROUP BY age;
+
+
+
+scrip1.sql
+
+DROP TYPE IF EXISTS project0.role CASCADE;
+CREATE TYPE project0.role AS ENUM ('Admin', 'Employee', 'Customer');
+
+DROP TABLE IF EXISTS project0.users CASCADE;
+CREATE TABLE project0.users (
+	id SERIAL PRIMARY KEY,
+	username VARCHAR (250) UNIQUE NOT NULL,
+	password VARCHAR (250) NOT NULL,
+	role project0.ROLE NOT NULL
+);
+
+DROP TABLE IF EXISTS project0.accounts CASCADE;
+CREATE TABLE project0.accounts (
+	id SERIAL PRIMARY KEY,
+	balance NUMERIC (50, 2) NOT NULL CHECK (balance >= 0) DEFAULT 0
+--	owner INTEGER NOT NULL REFERENCES project0.users (id)
+--	active BOOLEAN DEFAULT false
+);
+
+DROP TABLE IF EXISTS project0.users_accounts_jt;
+CREATE TABLE project0.users_accounts_jt (
+	owner INTEGER NOT NULL REFERENCES project0.users (id),
+	account INTEGER NOT NULL REFERENCES project0.accounts (id)
+);
+
+DROP TABLE IF EXISTS project0.applications CASCADE;
+CREATE TABLE project0.applications (
+	id SERIAL PRIMARY KEY,
+	owner INTEGER NOT NULL REFERENCES project0.users (id)
+);
+
+INSERT INTO project0.users (username, password, role) VALUES ('moberlies', 'password', 'Admin');
 
 
 
